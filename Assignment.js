@@ -4,16 +4,15 @@
 
 const multiPliers = (num, len) => {
 
-    array = [1, 2, 3, 4, 5, 6];
     var arrayValue = [];
-    for (let i = 0; i < len; i++) {
-        var element = array[i] * num;
+    for (let i = 1; i <= len; i++) {
+        var element = i * num;
         arrayValue.push(element)
     }
     console.log(arrayValue)
 
 }
-multiPliers(2, 6)
+multiPliers(5, 2)
 
 
 // Solution -2
