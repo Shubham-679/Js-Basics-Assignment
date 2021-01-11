@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<table>
+	<tr>
+		<th>SrNo</th>
+		<th>Product Name</th>
+		<th>Price</th>
+		<th>Qty</th>
+		<th>Add to Cart</th>		
+	</tr>
+	<tbody id="tdata">
+		
+	</tbody>
+</table>
+<table>
+	<tr>
+		<th>SrNo</th>
+		<th>Product Name</th>
+		<th>Price</th>
+		<th>Qty</th>	
+		<th>Sub Total</th>	
+	</tr>
+	<tbody id="tdata2">
+		
+	</tbody>
+	<tfoot id="tdata3">
+		
+	</tfoot>
+</table>
+<script type="text/javascript">
+	var userArray=[
+		{pro_name:'Cloth',price:2900,qty:20},
+		{pro_name:'XYZ',price:900,qty:12},
+		{pro_name:'ABC',price:1200,qty:14},
+		{pro_name:'Mobile',price:19000,qty:10},
+		{pro_name:'Watch',price:2400,qty:15},
+	]
+	var myCart=[]
+	var tdata=document.getElementById('tdata')
+	var tdata2=document.getElementById('tdata2')
+	showData();
+	function showData() {
+		tdata.innerHTML=""
+		userArray.forEach(function (row,index) {
+			tdata.innerHTML+="<tr><td>"+(index+1)+"</td><td>"+row.pro_name+"</td><td>"+row.price+"</td><td>"+row.qty+"</td><td><button onclick='addToCart("+index+")'>Cart</button></td></tr>"
+		})
+	}
+	function showCart() {
+		tdata2.innerHTML=""
+		myCart.forEach(function (row,index) {
+			tdata2.innerHTML+="<tr><td>"+(index+1)+"</td><td>"+row.pro_name+"</td><td>"+row.price+"</td><td>"+row.qty+"</td><td>"+row.total+"</td></tr>"
+		})
+		var gTotal=0
+		myCart.forEach(function (value) {
+			gTotal+=value.total
+		})
+		document.getElementById('tdata3').innerHTML="<tr><td colspan='4' style='text-align:right'>Total :</td><td>"+gTotal+"</td></tr>"
+	}
+	function addToCart(index) {
+		var itemname=userArray[index].pro_name;
+		var mydata=myCart.filter(function (row) {
+			if(row.pro_name==itemname)
+			return row
+		})	
+		// console.log(userArray)			
+		if(mydata.length==0){
+				let tempdata=userArray[index];										
+				myCart.push({...tempdata,qty:1,total:(tempdata.price*1)})
+				userArray.splice(index,1,{...userArray[index],qty:userArray[index].qty-1})							
+			}else{
+				console.log(userArray[index].qty)
+				if(userArray[index].qty>0)
+				myCart.forEach(function (row,i) {
+					if(row.pro_name==itemname){
+						let data=myCart[i];		
+						data.qty++	
+						data.total=data.qty*data.price	
+						myCart.splice(i,1,data)	
+						userArray.splice(index,1,{...userArray[index],qty:userArray[index].qty-1})			
+					}
+				})
+			else{
+				alert('Item out off Stock')
+			}
+			}		
+			
+					console.log(myCart)
+			showCart()
+			showData()
+	}
+	
+</script>
+</body>
+</html>

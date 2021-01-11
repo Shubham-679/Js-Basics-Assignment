@@ -12,7 +12,7 @@ const multiPliers = (num, len) => {
     console.log(arrayValue)
 
 }
-multiPliers(5, 2)
+multiPliers(5, 4)
 
 
 // Solution -2
@@ -23,7 +23,6 @@ const trueValue = () => {
     values = [true, false, true, true]
     const count = values.filter(Boolean).length;
     console.log(`Total No. of True Values : ${count}`);
-
 }
 trueValue()
 
@@ -53,8 +52,9 @@ findWord("He is Best the player!")
 
 const getBudgets = (arr) => {
 
-    let sum = arr.map(el => el.budget)
-        .reduce((p, n) => { return p + n });
+    // let sum = arr.map(el => el.budget)
+    //     .reduce((p, n) => { return p + n });
+    let sum = arr.reduce((p, n) => { return p + n.budget },0);
     console.log(`Sum of budgets : ${sum}`);
 }
 
@@ -134,4 +134,3 @@ class Movie {
 let movie = new Movie();
 movie.calculateDuration();
 movie.getAllName();
-
